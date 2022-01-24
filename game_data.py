@@ -51,7 +51,7 @@ level_4 = {"terrain": "levels/4/level_4_terrain.csv",
            "constraints": "levels/4/level_4_constraints.csv",
            "player": "levels/4/level_4_player.csv",
            "node_pos": (880, 210),
-           "unlock": 5,
+           "unlock": 4,
            "node_graphics": "graphics/overworld/4"
            }
 

@@ -75,13 +75,12 @@ class Overworld:
                 node_sprite = Node(node_data["node_pos"], "locked", self.speed,
                                    node_data["node_graphics"])
             self.nodes.add(node_sprite)
+        print([i for i in self.nodes])
 
     def draw_paths(self):
         if self.max_level > 0:
             points = [node['node_pos'] for index, node in enumerate(levels.values())
                       if index <= self.max_level]
-
-            print([node["node_pos"] for index, node in enumerate(levels.values()) if index <= self.max_level])
             pygame.draw.lines(self.display_surface, 'red', False, points, 6)
 
     def icon_setup(self):
@@ -94,25 +93,23 @@ class Overworld:
 
         if not self.moving:
             if keys[pygame.K_RIGHT] and self.current_level < self.max_level:
-                self.move_direction = self.get_move_data("next")
+                self.move_direction = self.get_movement_data('next')
                 self.current_level += 1
                 self.moving = True
             elif keys[pygame.K_LEFT] and self.current_level > 0:
-                self.move_direction = self.get_move_data("previous")
+                self.move_direction = self.get_movement_data('previous')
                 self.current_level -= 1
                 self.moving = True
             elif keys[pygame.K_SPACE]:
                 self.create_level(self.current_level)
 
-    def get_move_data(self, target):
+    def get_movement_data(self, target):
         start = pygame.math.Vector2(self.nodes.sprites()[self.current_level].rect.center)
 
-        if target == "next":
-            if self.current_level < self.max_level:
-                end = pygame.math.Vector2(self.nodes.sprites()[self.current_level + 1].rect.center)
+        if target == 'next':
+            end = pygame.math.Vector2(self.nodes.sprites()[self.current_level + 1].rect.center)
         else:
-            if self.current_level > 0:
-                end = pygame.math.Vector2(self.nodes.sprites()[self.current_level - 1].rect.center)
+            end = pygame.math.Vector2(self.nodes.sprites()[self.current_level - 1].rect.center)
         return (end - start).normalize()
 
     def update_icon_pos(self):
